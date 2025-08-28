@@ -185,7 +185,7 @@ class Config(BaseModel):
 
     __validate_output_datetime_class_err: ClassVar[str] = (
         '`--output-datetime-class` only allows "datetime" for '
-        f"`--output-model-type` {DataModelType.DataclassesDataclass.value} or {DataModelType.AttrsDefine.value}"
+        f"`--output-model-type` {DataModelType.DataclassesDataclass.value}"
     )
 
     __validate_original_field_name_delimiter_err: ClassVar[str] = (

@@ -4,8 +4,9 @@
 
 from __future__ import annotations
 
-from attrs import define
 from typing import Optional
+
+from attrs import define
 
 
 @define(frozen=True)
