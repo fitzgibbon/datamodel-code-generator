@@ -31,5 +31,5 @@ class {{ class_name }}:
             %} = {{ field.represented_default }}
     {%- endif -%}
     {%- endif %}
-{# Field descriptions are embedded in attrs.field(metadata=...) for attrs output #}
+{#- Field descriptions are embedded in attrs.field(metadata=...) for attrs output -#}
 {%- endfor -%}
