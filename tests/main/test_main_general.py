@@ -190,6 +190,81 @@ def test_frozen_dataclasses_with_keyword_only_command_line(tmp_path: Path) -> No
     )
 
 
+@freeze_time(TIMESTAMP)
+def test_frozen_attrs(tmp_path: Path) -> None:
+    """Test attrs output with --frozen-dataclasses flag."""
+    output_file = tmp_path / "output.py"
+    generate(
+        DATA_PATH / "jsonschema" / "simple_frozen_test.json",
+        input_file_type=InputFileType.JsonSchema,
+        output=output_file,
+        output_model_type=DataModelType.AttrsDefine,
+        frozen_dataclasses=True,
+    )
+    assert output_file.read_text() == (EXPECTED_MAIN_PATH / "frozen_attrs.py").read_text()
+
+
+@freeze_time(TIMESTAMP)
+def test_frozen_attrs_with_keyword_only(tmp_path: Path) -> None:
+    """Test attrs output with --frozen-dataclasses and --keyword-only flag combination."""
+
+    output_file = tmp_path / "output.py"
+    generate(
+        DATA_PATH / "jsonschema" / "simple_frozen_test.json",
+        input_file_type=InputFileType.JsonSchema,
+        output=output_file,
+        output_model_type=DataModelType.AttrsDefine,
+        frozen_dataclasses=True,
+        keyword_only=True,
+        target_python_version=PythonVersion.PY_310,
+    )
+    assert output_file.read_text() == (EXPECTED_MAIN_PATH / "frozen_attrs_keyword_only.py").read_text()
+
+
+@freeze_time(TIMESTAMP)
+def test_frozen_attrs_command_line(tmp_path: Path) -> None:
+    """Test attrs --frozen-dataclasses flag via command line."""
+    output_file: Path = tmp_path / "output.py"
+    return_code: Exit = main([
+        "--input",
+        str(DATA_PATH / "jsonschema" / "simple_frozen_test.json"),
+        "--output",
+        str(output_file),
+        "--input-file-type",
+        "jsonschema",
+        "--output-model-type",
+        "attrs.define",
+        "--frozen-dataclasses",
+    ])
+    assert return_code == Exit.OK
+    assert output_file.read_text(encoding="utf-8") == (EXPECTED_MAIN_PATH / "frozen_attrs.py").read_text()
+
+
+@freeze_time(TIMESTAMP)
+def test_frozen_attrs_with_keyword_only_command_line(tmp_path: Path) -> None:
+    """Test attrs --frozen-dataclasses with --keyword-only flag via command line."""
+    output_file: Path = tmp_path / "output.py"
+    return_code: Exit = main([
+        "--input",
+        str(DATA_PATH / "jsonschema" / "simple_frozen_test.json"),
+        "--output",
+        str(output_file),
+        "--input-file-type",
+        "jsonschema",
+        "--output-model-type",
+        "attrs.define",
+        "--frozen-dataclasses",
+        "--keyword-only",
+        "--target-python-version",
+        "3.10",
+    ])
+    assert return_code == Exit.OK
+    assert (
+        output_file.read_text(encoding="utf-8")
+        == (EXPECTED_MAIN_PATH / "frozen_attrs_keyword_only.py").read_text()
+    )
+
+
 def test_filename_with_newline_injection(tmp_path: Path) -> None:
     """Test that filenames with newlines cannot inject code into generated files"""
 
