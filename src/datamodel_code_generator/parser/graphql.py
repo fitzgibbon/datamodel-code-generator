@@ -18,6 +18,7 @@ from datamodel_code_generator import (
 from datamodel_code_generator.model import DataModel, DataModelFieldBase
 from datamodel_code_generator.model import pydantic as pydantic_model
 from datamodel_code_generator.model.dataclass import DataClass
+from datamodel_code_generator.model.attrs import DataClass as AttrsDataClass
 from datamodel_code_generator.model.enum import Enum
 from datamodel_code_generator.model.scalar import DataTypeScalar
 from datamodel_code_generator.model.union import DataTypeUnion
@@ -289,9 +290,9 @@ class GraphQLParser(Parser):
                 self.support_graphql_types[resolved_type].append(type_)
 
     def _create_data_model(self, model_type: type[DataModel] | None = None, **kwargs: Any) -> DataModel:
-        """Create data model instance with conditional frozen parameter for DataClass."""
+        """Create data model instance with conditional frozen parameter for DataClass/attrs class."""
         data_model_class = model_type or self.data_model_type
-        if issubclass(data_model_class, DataClass):
+        if issubclass(data_model_class, (DataClass, AttrsDataClass)):
             kwargs["frozen"] = self.frozen_dataclasses
         return data_model_class(**kwargs)
 

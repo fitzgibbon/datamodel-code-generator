@@ -4,6 +4,8 @@ from datamodel_code_generator.imports import Import
 
 IMPORT_DATACLASS = Import.from_full_path("dataclasses.dataclass")
 IMPORT_FIELD = Import.from_full_path("dataclasses.field")
+IMPORT_ATTRS_DEFINE = Import.from_full_path("attrs.define")
+IMPORT_ATTRS_FIELD = Import.from_full_path("attrs.field")
 IMPORT_CLASSVAR = Import.from_full_path("typing.ClassVar")
 IMPORT_TYPED_DICT = Import.from_full_path("typing.TypedDict")
 IMPORT_TYPED_DICT_BACKPORT = Import.from_full_path("typing_extensions.TypedDict")

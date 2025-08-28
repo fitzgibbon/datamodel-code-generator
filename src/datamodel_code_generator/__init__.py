@@ -171,6 +171,7 @@ class DataModelType(Enum):
     DataclassesDataclass = "dataclasses.dataclass"
     TypingTypedDict = "typing.TypedDict"
     MsgspecStruct = "msgspec.Struct"
+    AttrsDefine = "attrs.define"
 
 
 class OpenAPIScope(Enum):
@@ -450,7 +451,7 @@ def generate(  # noqa: PLR0912, PLR0913, PLR0914, PLR0915
         else enum_field_as_literal,
         use_one_literal_as_default=use_one_literal_as_default,
         set_default_enum_member=True
-        if output_model_type == DataModelType.DataclassesDataclass
+        if output_model_type in (DataModelType.DataclassesDataclass, DataModelType.AttrsDefine)
         else set_default_enum_member,
         use_subclass_enum=use_subclass_enum,
         strict_nullable=strict_nullable,

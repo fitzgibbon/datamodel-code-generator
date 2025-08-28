@@ -31,6 +31,7 @@ def get_data_model_types(
 ) -> DataModelSet:
     from datamodel_code_generator import DataModelType  # noqa: PLC0415
 
+    from . import attrs as attrs_model  # noqa: PLC0415
     from . import dataclass, msgspec, pydantic, pydantic_v2, rootmodel, typed_dict  # noqa: PLC0415
     from .types import DataTypeManager  # noqa: PLC0415
 
@@ -57,6 +58,15 @@ def get_data_model_types(
             field_model=dataclass.DataModelField,
             data_type_manager=dataclass.DataTypeManager,
             dump_resolve_reference_action=None,
+        )
+    if data_model_type == DataModelType.AttrsDefine:
+        return DataModelSet(
+            data_model=attrs_model.DataClass,
+            root_model=rootmodel.RootModel,
+            field_model=attrs_model.DataModelField,
+            data_type_manager=attrs_model.DataTypeManager,
+            dump_resolve_reference_action=None,
+            known_third_party=["attrs", "cattrs"],
         )
     if data_model_type == DataModelType.TypingTypedDict:
         return DataModelSet(

@@ -185,7 +185,7 @@ class Config(BaseModel):
 
     __validate_output_datetime_class_err: ClassVar[str] = (
         '`--output-datetime-class` only allows "datetime" for '
-        f"`--output-model-type` {DataModelType.DataclassesDataclass.value}"
+        f"`--output-model-type` {DataModelType.DataclassesDataclass.value} or {DataModelType.AttrsDefine.value}"
     )
 
     __validate_original_field_name_delimiter_err: ClassVar[str] = (
@@ -207,7 +207,7 @@ class Config(BaseModel):
             if (
                 datetime_class_type
                 and datetime_class_type is not DatetimeClassType.Datetime
-                and self.output_model_type == DataModelType.DataclassesDataclass
+                and self.output_model_type in (DataModelType.DataclassesDataclass, DataModelType.AttrsDefine)
             ):
                 raise Error(self.__validate_output_datetime_class_err)
             return self
@@ -230,7 +230,7 @@ class Config(BaseModel):
             python_target: PythonVersion = self.target_python_version
             if (
                 self.keyword_only
-                and output_model_type == DataModelType.DataclassesDataclass
+                and output_model_type in (DataModelType.DataclassesDataclass, DataModelType.AttrsDefine)
                 and not python_target.has_kw_only_dataclass
             ):
                 raise Error(self.__validate_keyword_only_err)
@@ -273,7 +273,7 @@ class Config(BaseModel):
             python_target: PythonVersion = cast("PythonVersion", values.get("target_python_version"))
             if (
                 values.get("keyword_only")
-                and output_model_type == DataModelType.DataclassesDataclass
+                and output_model_type in (DataModelType.DataclassesDataclass, DataModelType.AttrsDefine)
                 and not python_target.has_kw_only_dataclass
             ):
                 raise Error(cls.__validate_keyword_only_err)
