@@ -310,8 +310,8 @@ class Config(BaseModel):
     force_optional: bool = False
     class_name: Optional[str] = None  # noqa: UP045
     use_standard_collections: bool = False
-    use_schema_description: bool = False
-    use_field_description: bool = False
+    use_schema_description: bool = True
+    use_field_description: bool = True
     use_default_kwarg: bool = False
     reuse_model: bool = False
     encoding: str = DEFAULT_ENCODING

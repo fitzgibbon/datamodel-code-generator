@@ -25,6 +25,7 @@ from datamodel_code_generator.model import pydantic as pydantic_model
 from datamodel_code_generator.model.base import UNDEFINED, get_module_name
 from datamodel_code_generator.model.dataclass import DataClass
 from datamodel_code_generator.model.attrs import DataClass as AttrsDataClass
+from datamodel_code_generator.model.attrs import DataModelField as AttrsDataModelField
 from datamodel_code_generator.model.enum import Enum
 from datamodel_code_generator.parser import DefaultPutDict, LiteralType
 from datamodel_code_generator.parser.base import (
@@ -618,7 +619,9 @@ class JsonSchemaParser(Parser):
             data_type=field_type,
             required=required,
             alias=alias,
-            constraints=field.dict() if self.is_constraints_field(field) else None,
+            constraints=field.dict()
+            if (self.is_constraints_field(field) or issubclass(self.data_model_field_type, AttrsDataModelField))
+            else None,
             nullable=field.nullable if self.strict_nullable and (field.has_default or required) else None,
             strip_default_none=self.strip_default_none,
             extras=self.get_field_extras(field),
