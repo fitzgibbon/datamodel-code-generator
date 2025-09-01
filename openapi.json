@@ -1,0 +1,6525 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Finite State Software Intelligence Platform API",
+    "description": "APIs related to ground-truth-based software intelligence.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/cves/{cve_id}": {
+      "get": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get CVE metadata",
+        "description": "Returns metadata for the given CVE ID",
+        "operationId": "get_cve_cves__cve_id__get",
+        "parameters": [
+          {
+            "name": "cve_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^CVE-\\d{4}-\\d{4,7}$",
+              "description": "The CVE ID to retrieve metadata for",
+              "examples": [
+                "CVE-2021-44228"
+              ],
+              "title": "Cve Id"
+            },
+            "description": "The CVE ID to retrieve metadata for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Cve Cves  Cve Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cves/v2/metadata": {
+      "post": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get CVE v2.0 metadata",
+        "description": "Returns metadata for the given CVE IDs",
+        "operationId": "post_bulk_cve_nvd_metadata_cves_v2_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Cve Ids",
+                "description": "The CVE IDs to retrieve metadata for",
+                "examples": [
+                  [
+                    "CVE-2021-44228",
+                    "CVE-2007-3286"
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Post Bulk Cve Nvd Metadata Cves V2 Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cves/v2/metadata/{cve_id}": {
+      "get": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get CVE v2.0 metadata",
+        "description": "Returns metadata for the given CVE ID",
+        "operationId": "get_cve_nvd_metadata_cves_v2_metadata__cve_id__get",
+        "parameters": [
+          {
+            "name": "cve_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^CVE-\\d{4}-\\d{4,7}$",
+              "description": "The CVE ID to retrieve metadata for",
+              "examples": [
+                "CVE-2021-44228"
+              ],
+              "title": "Cve Id"
+            },
+            "description": "The CVE ID to retrieve metadata for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Cve Nvd Metadata Cves V2 Metadata  Cve Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cves/v2/metadata/since/{date}": {
+      "get": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get a listing of CVES v2.0 metadata updated since specified date",
+        "description": "Returns CVE IDs that been updated since the input data",
+        "operationId": "get_cve_nvd_metadata_since_date_cves_v2_metadata_since__date__get",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "The date to retrieve metadata for",
+              "examples": [
+                "2021-10-01"
+              ],
+              "title": "Date"
+            },
+            "description": "The date to retrieve metadata for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {},
+                  "title": "Response Get Cve Nvd Metadata Since Date Cves V2 Metadata Since  Date  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cves/v2/exploits/{cve_id}": {
+      "get": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get CVE v2.0 exploit",
+        "description": "Returns exploit for the given CVE ID",
+        "operationId": "get_cve_bronze_exploit_cves_v2_exploits__cve_id__get",
+        "parameters": [
+          {
+            "name": "cve_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^CVE-\\d{4}-\\d{4,7}$",
+              "description": "The CVE ID to retrieve exploit information for",
+              "examples": [
+                "CVE-2004-1580"
+              ],
+              "title": "Cve Id"
+            },
+            "description": "The CVE ID to retrieve exploit information for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Get Cve Bronze Exploit Cves V2 Exploits  Cve Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cves/v2/exploits": {
+      "post": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get CVE v2.0 exploit",
+        "description": "Returns exploit for the given CVE IDs",
+        "operationId": "post_bulk_cve_bronze_exploit_cves_v2_exploits_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Cve Ids",
+                "description": "The CVE IDs to retrieve exploit information for",
+                "examples": [
+                  [
+                    "CVE-2021-44228",
+                    "CVE-2007-3286"
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Post Bulk Cve Bronze Exploit Cves V2 Exploits Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cves/v2/exploits/since/{date}": {
+      "get": {
+        "tags": [
+          "cves"
+        ],
+        "summary": "Get a listing of CVES v2.0 exploit updated since specified date",
+        "description": "Returns exploit for the given CVE ID",
+        "operationId": "get_cve_nvd_exploit_since_date_cves_v2_exploits_since__date__get",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "The date to retrieve exploit information for",
+              "examples": [
+                "2021-10-01"
+              ],
+              "title": "Date"
+            },
+            "description": "The date to retrieve exploit information for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {},
+                  "title": "Response Get Cve Nvd Exploit Since Date Cves V2 Exploits Since  Date  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cwes/{cwe_id}": {
+      "get": {
+        "tags": [
+          "cwes"
+        ],
+        "summary": "Get CWE metadata",
+        "description": "Returns CWE based on CWE-ID",
+        "operationId": "get_cwe_cwes__cwe_id__get",
+        "parameters": [
+          {
+            "name": "cwe_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d+$",
+              "description": "The CWE ID to retrieve metadata for",
+              "examples": [
+                "1047"
+              ],
+              "title": "Cwe Id"
+            },
+            "description": "The CWE ID to retrieve metadata for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": true
+                  },
+                  "title": "Response Get Cwe Cwes  Cwe Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cwes/": {
+      "post": {
+        "tags": [
+          "cwes"
+        ],
+        "summary": "Get CWE metadata",
+        "operationId": "post_bulk_cwe_metadata_cwes__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Cwe Ids",
+                "description": "The CWE IDs to retrieve metadata for",
+                "examples": [
+                  [
+                    "1047",
+                    "1048"
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "object",
+                  "title": "Response Post Bulk Cwe Metadata Cwes  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/epss": {
+      "post": {
+        "tags": [
+          "epss"
+        ],
+        "summary": "Get EPSS metadata",
+        "description": "Returns EPSS for the given CVE IDs",
+        "operationId": "post_bulk_epss_data_epss_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Cve Ids",
+                "description": "The CVE IDs to retrieve EPSS metadata for",
+                "examples": [
+                  [
+                    "CVE-2018-4034",
+                    "CVE-2007-3286"
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  "type": "object",
+                  "title": "Response Post Bulk Epss Data Epss Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fixed_version": {
+      "post": {
+        "tags": [
+          "fixed_version"
+        ],
+        "summary": "Retrieve fixed version information",
+        "description": "Returns a list of fixed versions along with their associated purls for the given list of package url specified.\nReturn information is not sorted and ordering is the same as the input specified.",
+        "operationId": "get_fixed_version_bulk_fixed_version_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageMetadataInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FixedVersionResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Get Fixed Version Bulk Fixed Version Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kernel_module_metadata": {
+      "get": {
+        "tags": [
+          "kernel_module_metadata"
+        ],
+        "summary": "Retrieve kernel module metadata",
+        "description": "Returns the kernel module metadata for the given kernel module metadata request input.\n\nIf the module name is not found in the metadata, returns a 404 (Not Found).\nIf we can't conclusively determine which metadata to return, returns a 409 (Conflict).\n\nThe returned response will be the metadata that best matches the given information.",
+        "operationId": "get_kernel_module_metadata_kernel_module_metadata_get",
+        "parameters": [
+          {
+            "name": "module_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Module Name"
+            }
+          },
+          {
+            "name": "module_file_path",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Module File Path"
+            }
+          },
+          {
+            "name": "module_description",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Module Description"
+            }
+          },
+          {
+            "name": "kernel_version",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kernel Version"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KernelModuleMetadataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "kernel_module_metadata"
+        ],
+        "summary": "Bulk retrieval of kernel module metadata",
+        "description": "Bulk retrieval of kernel module metadata.\n\nReturns a list of kernel module metadata responses for the given list of kernel module metadata request inputs.\nIf a module name is either not found in the metadata or we can't conclusively determine which metadata to return,\nthe corresponding response will be None.\n\nThe returned list will have the same length as the input list, and the order of the responses will match the order\nof the input list.",
+        "operationId": "get_kernel_module_metadata_bulk_kernel_module_metadata_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/KernelModuleMetadataRequestInput"
+                },
+                "title": "Kmod Info List"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/KernelModuleMetadataResponse"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "title": "Response Get Kernel Module Metadata Bulk Kernel Module Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mergebase_package_metadata": {
+      "post": {
+        "tags": [
+          "mergebase"
+        ],
+        "summary": "Retrieve package metadata",
+        "operationId": "get_mergebase_package_metadata_mergebase_package_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/VersionKey"
+                },
+                "type": "array",
+                "title": "Input Data",
+                "examples": [
+                  [
+                    {
+                      "r": "NPM",
+                      "a": "jsonwebtoken",
+                      "g": "",
+                      "v": "8.5.0"
+                    }
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MergebasePackageMetadataResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Get Mergebase Package Metadata Mergebase Package Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mergebase_vulnerabilities": {
+      "post": {
+        "tags": [
+          "mergebase"
+        ],
+        "summary": "Retrieve package metadata",
+        "operationId": "get_mergebase_vulnerabilities_mergebase_vulnerabilities_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/VersionKey"
+                },
+                "type": "array",
+                "title": "Input Data",
+                "examples": [
+                  [
+                    {
+                      "r": "NPM",
+                      "a": "jsonwebtoken",
+                      "g": "",
+                      "v": "8.5.0"
+                    }
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/MergebasePackageVulnerabilitiesResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Get Mergebase Vulnerabilities Mergebase Vulnerabilities Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/package_metadata": {
+      "get": {
+        "tags": [
+          "package_metadata"
+        ],
+        "summary": "Retrieve package metadata",
+        "description": "Returns a dictionary containing the license info and end of life (EoL) associated with that purl.\nReturned information is not sorted and return in same ordering as the input given.\nIf the purl is not found, a 404 error is raised.",
+        "operationId": "get_package_metadata_package_metadata_get",
+        "parameters": [
+          {
+            "name": "purl",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Purl"
+            }
+          },
+          {
+            "name": "use_fuzzy_matching",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": false,
+              "title": "Use Fuzzy Matching"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageMetadataResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "package_metadata"
+        ],
+        "summary": "Retrieve package metadata",
+        "description": "Returns a list of licenses and end of life (EoL) along with their associated purls for the given list of package url specified.\nReturn information is not sorted and ordering is the same as the input specified.",
+        "operationId": "get_package_metadata_bulk_package_metadata_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PackageMetadataInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PackageMetadataResponse"
+                  },
+                  "title": "Response Get Package Metadata Bulk Package Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/package_metadata_v2": {
+      "post": {
+        "tags": [
+          "package_metadata"
+        ],
+        "summary": "Retrieve package metadata for the given PURL. If the PURL does not exist in the database, generative AI will be used to generate metadata for the PURL (if enabled).",
+        "operationId": "package_metadata_v2_package_metadata_v2_post",
+        "parameters": [
+          {
+            "name": "purl",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Purl"
+            }
+          },
+          {
+            "name": "enable_ai",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Enable Ai"
+            }
+          },
+          {
+            "name": "enable_fuzzy_matching",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Enable Fuzzy Matching"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true,
+                "title": "Additional Metadata"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackageMetadataV2Response"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/patch_cves": {
+      "get": {
+        "tags": [
+          "patch_router"
+        ],
+        "summary": "\n    Retrieves all previous patches up to the patch input and returns the remediated CVE, tracking information,\n    title and associated references.\n    ",
+        "description": "Returns a dictionary containing both all patches up to the patch input along with remediated CVEs,\ntracking information, titles and associated reverences.\n\nReturned information is not sorted and return in same ordering as the input given.",
+        "operationId": "get_patch_cves_patch_cves_get",
+        "parameters": [
+          {
+            "name": "patch",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Patch"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size limit",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Page size limit"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Page offset",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Page offset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LimitOffsetPage_PatchResponse_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_patch_distribution": {
+      "get": {
+        "tags": [
+          "patch_router"
+        ],
+        "summary": "Retrieves all distributions that have patches in the database.",
+        "description": "Returns a dictionary containing all distributions that have patches in the database.",
+        "operationId": "get_patch_distribution_get_patch_distribution_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "title": "Response Get Patch Distribution Get Patch Distribution Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_major_versions": {
+      "get": {
+        "tags": [
+          "patch_router"
+        ],
+        "summary": "Retrieves all major versions for a distribution.",
+        "description": "Returns a list of release names for a specified distribution.\n\nNote: Some release information may be retrieved from the database, while other details may be hardcoded\nwithin the helper functions.\n\n:param request: Request object\n:param distribution: Distribution name\n:return: List of major versions for specified distribution",
+        "operationId": "get_major_versions_get_major_versions_get",
+        "parameters": [
+          {
+            "name": "distribution",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OperatingSystemDistro"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Get Major Versions Get Major Versions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get_patches": {
+      "get": {
+        "tags": [
+          "patch_router"
+        ],
+        "summary": "Retrieves all patches for a distribution and major version.",
+        "description": "Returns a dictionary containing all patches for a distribution and major version.",
+        "operationId": "get_patches_get_patches_get",
+        "parameters": [
+          {
+            "name": "major_version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Major Version"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "Page size limit",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Page size limit"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Page offset",
+              "default": 0,
+              "title": "Offset"
+            },
+            "description": "Page offset"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LimitOffsetPage_str_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/is_patched": {
+      "post": {
+        "tags": [
+          "patch_router"
+        ],
+        "summary": "Check if a CVE is patched for a given major version for a given purl.",
+        "description": "Returns a dictionary containing the status of the CVE, the patch information, and the vendor status.",
+        "operationId": "is_patched_is_patched_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/IsPatchedInput"
+                },
+                "type": "array",
+                "title": "Is Patched Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/IsPatchedResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Is Patched Is Patched Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/versions": {
+      "post": {
+        "tags": [
+          "remediation guidance"
+        ],
+        "summary": "Returns all versions of a package",
+        "description": "API endpoint returns a list of versions for a given list of pages. The input may be an individual version e.g. pkg:pypi/pandas@2.2.0\nor without a version e.g. pkg:pypi/pandas\n\nNote this currently only supports the following ecosystems: NPM, GOLANG, CARGO, MAVEN, PYPI, NUGET, GEM, PUB",
+        "operationId": "remediation_guidance_versions_versions_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemediationGuidanceInput"
+              },
+              "example": {
+                "purls": [
+                  "pkg:pypi/pandas@2.2.0"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PackageResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Remediation Guidance Versions Versions Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resolve_dependencies": {
+      "post": {
+        "tags": [
+          "resolve_deps"
+        ],
+        "summary": "Resolves missing dependencies for the given set of existing components and dependencies",
+        "operationId": "resolve_dependencies_resolve_dependencies_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResolveDepsInput",
+                "examples": [
+                  {
+                    "components": [
+                      "pkg:pypi/pandas@2.2.0",
+                      "pkg:pypi/python-dateutil@2.8.2"
+                    ],
+                    "dependencies": [
+                      {
+                        "from": "pkg:pypi/pandas@2.2.0",
+                        "to": "pkg:pypi/python-dateutil@2.8.2"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResolveDepsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/feature_value_exists/{feature_type}": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Check if multiple feature values exist for a given feature type",
+        "description": "Given a feature_type and a set of feature_values, returns the set of feature\nvalues that exist in the ground-truth collection.",
+        "operationId": "feature_values_exist_bulk_sca_feature_value_exists__feature_type__post",
+        "parameters": [
+          {
+            "name": "feature_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/FeatureTypeEnum",
+              "description": "The feature type to check for"
+            },
+            "description": "The feature type to check for"
+          },
+          {
+            "name": "exclude_overly_common",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Whether to exclude 'overly common' terms in the results",
+              "default": true,
+              "title": "Exclude Overly Common"
+            },
+            "description": "Whether to exclude 'overly common' terms in the results"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The list of feature values to check for. This can only be up to 10000 values in a single request.",
+                "title": "Feature Values"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Feature Values Exist Bulk Sca Feature Value Exists  Feature Type  Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/package_exists": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Check if multiple packages exist in the ground-truth collection",
+        "description": "Given a feature_type and a set of feature_values, returns the set of feature\nvalues that exist in the ground-truth collection.",
+        "operationId": "package_exists_bulk_sca_package_exists_post",
+        "parameters": [
+          {
+            "name": "exclude_overly_common",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Whether to exclude 'overly common' terms in the results",
+              "default": true,
+              "title": "Exclude Overly Common"
+            },
+            "description": "Whether to exclude 'overly common' terms in the results"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The list of package hashes to check for. This can only be up to 10000 values in a single request.",
+                "title": "Package Hashes"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  },
+                  "title": "Response Package Exists Bulk Sca Package Exists Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/packages_for_feature_values/{feature_type}": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Get packages that contain feature values",
+        "description": "Given a feature type and a list or set of feature values, return results containing\nthe packages that apply to each feature value. If max_cardinality is not None, then\nonly return the set of packages for feature values that have a cardinality less than\nor equal to max_cardinality.",
+        "operationId": "packages_for_feature_value_bulk_sca_packages_for_feature_values__feature_type__post",
+        "parameters": [
+          {
+            "name": "feature_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/FeatureTypeEnum",
+              "description": "The feature type to get packages for"
+            },
+            "description": "The feature type to get packages for"
+          },
+          {
+            "name": "max_cardinality",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "The maximum number of packages that a feature value can belong to (inclusive). Any feature belonging to more packages than this will be returned in the 'max_cardinality_exceeded' list. If not specified, no cardinality limit will be imposed.",
+              "title": "Max Cardinality"
+            },
+            "description": "The maximum number of packages that a feature value can belong to (inclusive). Any feature belonging to more packages than this will be returned in the 'max_cardinality_exceeded' list. If not specified, no cardinality limit will be imposed."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "The feature values to get packages for. Every value is guaranteed to be in the returned result, either with a list of packages containing the feature value, an empty list if the feature value does not exist, or in the 'max_cardinality_limit_exceeded list if the feature value exists but has more packages than the max_cardinality parameter allows for.",
+                "title": "Feature Values"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PackagesForFeatureValuesResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/component_metadata": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Get component metadata for a list of component ids",
+        "description": "Given a list of component ids, returns a dictionary of component id to component metadata.\nIf a component id does not exist, then it's value in the returned dictionary will be null.",
+        "operationId": "component_metadata_bulk_sca_component_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Component Ids",
+                "description": "The list of component IDs to retrieve metadata for. This can only be up to 10000 values in a single request."
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "title": "Response Component Metadata Bulk Sca Component Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/pkg_evidence_info": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Get 'evidence info' for a list of package hashes",
+        "description": "Given a list of package hashes, return the 'evidence info' dictionary for each.\nThis is a dictionary of information about the features of a package, including\nthe count of unique feature values for each feature type and the total inverse\ndocument frequency score of each type's features. If a package hash does not exist\nin the ground-truth collection, then its value in the returned dictionary will be null.",
+        "operationId": "evidence_info_bulk_sca_pkg_evidence_info_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Package Hashes",
+                "description": "The list of package hashes to retrieve evidence info for. This can only be up to 10000 values in a single request."
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "additionalProperties": true,
+                        "type": "object"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "title": "Response Evidence Info Bulk Sca Pkg Evidence Info Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/fuzzy_match_binary_terms": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Fuzzy matches a given set of binary terms to terms extracted from files in the ground-truth collection.",
+        "description": "Given a set of binary terms and a term type, fuzzy matches the terms against\nterms extracted from files in the ground-truth collection. Only matches with the\nhighest match score are returned.",
+        "operationId": "fuzzy_match_binary_terms_sca_fuzzy_match_binary_terms_post",
+        "parameters": [
+          {
+            "name": "term_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BinaryTermTypesEnum"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "Terms"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FuzzyBinaryTermMatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/load_common_binary_terms": {
+      "get": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Forcefully (re)loads all common binary terms",
+        "description": "Forcefully reloads all common binary terms and caches them globally.\nThis endpoint can be used to trigger a re-load of common binary terms\nwhenever desired without having to restart the server. Since the terms\nare cached globally, all requests to the server that use the common terms\nwill run much faster if they are preloaded. Note that by default, the\ncommon terms are loaded on server startup so calling this endpoint is\nnot essential in production.",
+        "operationId": "load_common_binary_terms_sca_load_common_binary_terms_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "additionalProperties": {
+                      "type": "integer"
+                    },
+                    "type": "object"
+                  },
+                  "type": "object",
+                  "title": "Response Load Common Binary Terms Sca Load Common Binary Terms Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/fuzzy_match_subcomponent_terms": {
+      "post": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Match subcomponent ground-truth term sets for a given set of input terms",
+        "description": "Matches subcomponent ground-truth term sets for a given set of input terms.\nReturns the information regarding each matched ground-truth subcomponent, including\nname, version, score, and details on a per-term-type basis.",
+        "operationId": "fuzzy_match_subcomponent_terms_sca_fuzzy_match_subcomponent_terms_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FuzzyMatchSubcomponentTermsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FuzzySubcomponentTermMatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sca/subcomponent_terms": {
+      "get": {
+        "tags": [
+          "sca"
+        ],
+        "summary": "Get Subcomponent Terms",
+        "description": "Retrieves all ground-truth term sets for a given subcomponent _key.\nTerms are returned in dictionary where the keys are the term types\nand the values are lists of terms.\n\nSubcomponent IDs can be found in the `subcomponent_id` field of the\nmatches returned by the `/fuzzy_match_subcomponent_terms` endpoint.\n\nIf the subcomponent key is not known, a 404 error is returned.",
+        "operationId": "get_subcomponent_terms_sca_subcomponent_terms_get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The subcomponent key to get terms for",
+              "title": "Id"
+            },
+            "description": "The subcomponent key to get terms for"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "title": "Response Get Subcomponent Terms Sca Subcomponent Terms Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/software_ids": {
+      "get": {
+        "tags": [
+          "software_ids"
+        ],
+        "summary": "Generate software identifiers for the given set of component metadata.",
+        "description": "Returns a list of software identifiers (CPEs, PURLs, etc.) for the given component metadata.\nReturned identifiers are sorted by confidence (descending) and then by type and value (ascending).",
+        "operationId": "get_software_ids_software_ids_get",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Version"
+            }
+          },
+          {
+            "name": "supplier_name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Supplier Name"
+            }
+          },
+          {
+            "name": "supplier_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Supplier Type"
+            }
+          },
+          {
+            "name": "generate_purl_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Generate Purl Only"
+            }
+          },
+          {
+            "name": "purl",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Purl"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SoftwareId"
+                  },
+                  "title": "Response Get Software Ids Software Ids Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "software_ids"
+        ],
+        "summary": "Generate software identifiers for multiple sets of component metadata.",
+        "description": "Returns a list of software identifiers (CPEs, PURLs, etc.) for the given list of component information.\nReturned identifiers are contained in lists (one per input), guaranteed to be in the same order\nas the inputs. Within the individual lists of identifiers, they are sorted by confidence (descending)\nand then by type and value (ascending).",
+        "operationId": "get_software_ids_bulk_software_ids_post",
+        "parameters": [
+          {
+            "name": "generate_purl_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Boolean indicating whether to only generate purl only for ALL components in the input list. This will override the setting on component list input.",
+              "default": false,
+              "title": "Generate Purl Only"
+            },
+            "description": "Boolean indicating whether to only generate purl only for ALL components in the input list. This will override the setting on component list input."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SoftwareInfo"
+                },
+                "title": "Sw Info List"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/SoftwareId"
+                    }
+                  },
+                  "title": "Response Get Software Ids Bulk Software Ids Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/spdx_license": {
+      "get": {
+        "tags": [
+          "spdx_license"
+        ],
+        "summary": "Retrieve SPDX License",
+        "description": "Returns a dictionary containing both the licenseId input and the license info associated with that licenseId.\nReturned information is not sorted and return in same ordering as the input given.",
+        "operationId": "get_spdx_license_spdx_license_get",
+        "parameters": [
+          {
+            "name": "license",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "License"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SPDXResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "spdx_license"
+        ],
+        "summary": "Retrieve SPDX License Bulk",
+        "description": "Returns a list of licenses information along with their associated licenseIds for the given list of licenseIds specified.\nReturn information is not sorted and ordering is the same as the input specified.",
+        "operationId": "get_license_bulk_spdx_license_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "title": "Lic"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SPDXResponse"
+                  },
+                  "title": "Response Get License Bulk Spdx License Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/normalize_license": {
+      "post": {
+        "tags": [
+          "spdx_license"
+        ],
+        "summary": "Normalize SPDX License and check if its compliant",
+        "description": "Normalize the license string and check if it is SPDX compliant.",
+        "operationId": "normalize_license_normalize_license_post",
+        "parameters": [
+          {
+            "name": "input_expression",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Input Expression"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NormalizedLicenseResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vulnerabilities": {
+      "post": {
+        "tags": [
+          "vulnerabilities"
+        ],
+        "summary": "Match vulnerabilities to the given set of software IDs",
+        "description": "Matches vulnerabilities for all given software identifiers. Matched CVEs are returned in order of confidence,\nwith the most confident matches listed first. Each returned CVE contains a list of the software IDs\naffected by the vulnerability.\n\n:param request: The incoming request\n:param use_cache: Whether to use the cache when matching vulnerabilities. Defaults to true.\n:param sw_ids: List of software identifiers to match\n:return: List of matched vulnerabilities",
+        "operationId": "match_vulnerabilities_vulnerabilities_post",
+        "parameters": [
+          {
+            "name": "use_cache",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Use Cache"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/VulnMatchSoftwareId"
+                },
+                "examples": [
+                  [
+                    {
+                      "type": "cpe",
+                      "value": "cpe:2.3:a:haskell:aeson:0.3.2.8:*:*:*:*:*:*:*",
+                      "confidence": 0.9
+                    },
+                    {
+                      "type": "purl",
+                      "value": "pkg:hackage/aeson@0.3.2.8",
+                      "confidence": 1.0
+                    }
+                  ]
+                ],
+                "title": "Sw Ids"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MatchedVulnerability"
+                  },
+                  "title": "Response Match Vulnerabilities Vulnerabilities Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/exploit_metadata": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Post Get Many Exploit By Id Set",
+        "description": "Returns exploit metadata for a provided list vulnerability IDs. The number of IDs must not exceed the batch limit which is set to 10000.",
+        "operationId": "post_get_many_exploit_by_id_set_v1_alloy_exploit_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestManyByVulnIdSet"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_dict__"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/package_metadata/bulk": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve package metadata for the given PURL.",
+        "description": "Retrieve package metadata for a list of pURLs\n\nBy default, fuzzy matching is disabled. If you want to enable it, set the `enable_fuzzy_matching` flag to True.\nThis will increase response times, sometimes dramatically, depending on how many of the given PURLs have exact\nmatches in the database. Use with caution!\n\n:param body: POST body should contain BulkPackageMetadataRequest",
+        "operationId": "package_metadata_bulk_v1_alloy_package_metadata_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BulkPackageMetadataRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_dict__"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/package_metadata": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve package metadata for the given PURL.",
+        "description": "Retrieve package metadata for a single given PURL.\n\nThis endpoint takes either a single pURL as a query param. By default, fuzzy matching is enabled.\n\n:param purl: The PURL to retrieve the metadata for.\n:param timestamp: limits the results to only metadata updated after the timestamp value\n:param enable_fuzzy_matching: whether to enable fuzzy matching (default: True)",
+        "operationId": "package_metadata_v1_alloy_package_metadata_post",
+        "parameters": [
+          {
+            "name": "purl",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Purl"
+            }
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Timestamp"
+            }
+          },
+          {
+            "name": "enable_fuzzy_matching",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Enable Fuzzy Matching"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_PackageMetadata_"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/v1/alloy/normalize_license": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Normalize Licenses",
+        "description": "Normalize license strings from a list of license strings.\n\n\n:param request: request\n:param body: POST body should contain BulkNormalizeLicenseRequest",
+        "operationId": "post_normalize_licenses_v1_alloy_normalize_license_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/BulkNormalizeLicenseRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_dict__"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/vulnerability_metadata": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve vulnerability metadata for the given vulnerability IDs.",
+        "description": "Retrieve vulnerability metadata for the given vulnerability IDs.\n\nOptionally you can specify a list of fields as \"include\" or \"exclude\" if you want to include or exclude them\nfrom the response. Invalid fields will be ignored.",
+        "operationId": "vulnerability_metadata_v1_alloy_vulnerability_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlloyVulnerabilityMetadataInput",
+                "description": "The CVE IDs to retrieve metadata for",
+                "examples": [
+                  {
+                    "timestamp": "2021-01-01T00:00:00",
+                    "vulnerability_ids": [
+                      "CVE-2021-44228",
+                      "CVE-2007-3286"
+                    ],
+                    "include": [],
+                    "exclude": []
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_dict__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/vulnerability_match": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve vulnerability matches for given software identifiers.",
+        "description": "Matches vulnerabilities for all given software identifiers. Matched CVEs are returned in order of confidence,\nwith the most confident matches listed first. Each returned CVE contains a list of the software IDs\naffected by the vulnerability.\n\n:param request: The incoming request\n:param sw_ids: List of software identifiers to match\n:return: List of matched vulnerabilities",
+        "operationId": "vulnerability_match_v1_alloy_vulnerability_match_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/VulnMatchSoftwareId"
+                },
+                "type": "array",
+                "title": "Sw Ids",
+                "examples": [
+                  [
+                    {
+                      "type": "cpe",
+                      "value": "cpe:2.3:a:haskell:aeson:0.3.2.8:*:*:*:*:*:*:*",
+                      "confidence": 0.9
+                    },
+                    {
+                      "type": "purl",
+                      "value": "pkg:hackage/aeson@0.3.2.8",
+                      "confidence": 1.0
+                    }
+                  ]
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlloyVulnerabilityMatchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/related_packages": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve suggested groupings for given package URLs.",
+        "description": "Retrieve package relationships for a list of pURLs",
+        "operationId": "related_packages_v1_alloy_related_packages_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/RelatedPackagesRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_dict__"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/license": {
+      "get": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Search for SPDX licenses matching the query input",
+        "description": "Search for SPDX licenses starting with the search term.\n\n:param request: The incoming request\n:param q: prefix of license name to search on\n:param pagination: page number for pagination (defaults to 1) and size of result set\n:return: List of SPDX License matches",
+        "operationId": "get_spdx_license_v1_alloy_license_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Q"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "default": 10,
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_SPDXLicenseLite__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/reachability/{vuln_id}": {
+      "get": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve reachability data for a given vulnerability identifier.",
+        "description": "This endpoint retrieves reachability data for a specific vulnerability identifier. The data includes the vulnerability ID, associated kernel modules, and functions that are reachable from the vulnerability.",
+        "operationId": "get_by_id_v1_alloy_reachability__vuln_id__get",
+        "parameters": [
+          {
+            "name": "vuln_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Vuln Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_ReachabilityInfo_"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alloy/reachability/bulk": {
+      "post": {
+        "tags": [
+          "alloy"
+        ],
+        "summary": "Retrieve reachability data for a given list of vulnerability identifiers.",
+        "description": "This endpoint retrieves reachability data for a bulk of vulnerability identifiers.",
+        "operationId": "get_bulk_v1_alloy_reachability_bulk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBulkBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Response_list_ReachabilityInfo__"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/meta/download_url": {
+      "get": {
+        "tags": [
+          "meta"
+        ],
+        "summary": "Retrieve a presigned download URL for the latest export of the SIP database. The returned URL is valid for 1 hour.",
+        "description": "Returns a download URL for the most recent SIP export. This can be used to populate SIP in an on-prem airgapped deployment.",
+        "operationId": "get_download_url_meta_download_url_get",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Type of export (valid options: 'full' or 'vuln-intelligence')",
+              "default": "vuln-intelligence",
+              "title": "Type"
+            },
+            "description": "Type of export (valid options: 'full' or 'vuln-intelligence')"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DownloadUrlResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "tags": [
+          "docs"
+        ],
+        "summary": "Redirect to /docs",
+        "operationId": "docs_redirect__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "summary": "Metrics",
+        "description": "Endpoint that serves Prometheus metrics.",
+        "operationId": "metrics_metrics_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AlloyVulnerabilityMatchResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "success"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              200
+            ]
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "A message describing the response.",
+            "default": "Vulnerability Matches retrieved successfully"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/MatchedVulnerability"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "Vulnerability Matches for Software Identifiers.",
+            "examples": [
+              {
+                "affected_software_ids": [
+                  {
+                    "confidence": 1,
+                    "type": "purl",
+                    "value": "pkg:pypi/requests@1.2.3"
+                  }
+                ],
+                "confidence": 1,
+                "cwes": [
+                  "CWE-123"
+                ],
+                "id": "CVE-2018-18074",
+                "sources": [
+                  "external_0"
+                ]
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "data"
+        ],
+        "title": "AlloyVulnerabilityMatchResponse"
+      },
+      "AlloyVulnerabilityMetadataInput": {
+        "properties": {
+          "include": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Include",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to include"
+          },
+          "exclude": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exclude",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to exclude"
+          },
+          "vulnerability_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Vulnerability Ids",
+            "description": "List of vulnerability ids to get metadata for "
+          },
+          "timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp",
+            "description": "Optional filter for metadata that has been updated since this time"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vulnerability_ids"
+        ],
+        "title": "AlloyVulnerabilityMetadataInput"
+      },
+      "BinaryTermTypesEnum": {
+        "type": "string",
+        "enum": [
+          "symbol",
+          "import",
+          "export"
+        ],
+        "title": "BinaryTermTypesEnum"
+      },
+      "BulkNormalizeLicenseRequest": {
+        "properties": {
+          "include": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Include",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to include"
+          },
+          "exclude": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exclude",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to exclude"
+          },
+          "licenses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Licenses",
+            "description": "The license strings to normalize",
+            "examples": [
+              [
+                "MIT"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "licenses"
+        ],
+        "title": "BulkNormalizeLicenseRequest"
+      },
+      "BulkPackageMetadataRequest": {
+        "properties": {
+          "include": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Include",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to include"
+          },
+          "exclude": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exclude",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to exclude"
+          },
+          "purls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Purls",
+            "description": "The Package URLs (PURLs) to lookup.",
+            "examples": [
+              [
+                "pkg:pypi/requests@1.2.3"
+              ]
+            ]
+          },
+          "timestamp": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timestamp",
+            "description": "If the metadata has not been updated after this timestamp, it will not be returned",
+            "examples": [
+              "2021-01-01T00:00:00"
+            ]
+          },
+          "enable_fuzzy_matching": {
+            "type": "boolean",
+            "title": "Enable Fuzzy Matching",
+            "description": "Whether to enable fuzzy matching. Defaults to False. Enabling this will increase response times, sometimes dramatically, depending on how many of the givne PURLs have exact matches in the database. Use with caution!",
+            "default": false,
+            "examples": [
+              true
+            ]
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginationParams",
+            "description": "The pagination details for the request.",
+            "default": {
+              "page": 1,
+              "size": 10
+            },
+            "examples": [
+              {
+                "page": 1,
+                "size": 10
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "purls"
+        ],
+        "title": "BulkPackageMetadataRequest"
+      },
+      "DependencyInfoOrigins": {
+        "type": "string",
+        "enum": [
+          "input",
+          "deps.dev"
+        ],
+        "title": "DependencyInfoOrigins",
+        "description": "Enum that represents the different origins of dependency info that can be queried."
+      },
+      "DownloadUrlResponse": {
+        "properties": {
+          "download_url": {
+            "type": "string",
+            "title": "Download Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "download_url"
+        ],
+        "title": "DownloadUrlResponse"
+      },
+      "ErrorDetails": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "A detailed error message.",
+            "examples": [
+              "Resource not found"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "ErrorDetails"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "error"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              400
+            ]
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "A general error message.",
+            "examples": [
+              "Bad request"
+            ]
+          },
+          "details": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorDetails"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Detailed error information if available."
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "message"
+        ],
+        "title": "ErrorResponse"
+      },
+      "FeatureTypeEnum": {
+        "type": "string",
+        "enum": [
+          "file_hash",
+          "file_type",
+          "pkg_hash",
+          "lib_hash",
+          "import_fuzzy",
+          "export_fuzzy",
+          "symbol_fuzzy",
+          "dirent"
+        ],
+        "title": "FeatureTypeEnum"
+      },
+      "FixedVersion": {
+        "properties": {
+          "detection": {
+            "type": "string",
+            "title": "Detection",
+            "description": "CVE associated with package",
+            "examples": [
+              "CVE-2021-1234"
+            ]
+          },
+          "fixed_version": {
+            "type": "string",
+            "title": "Fixed Version",
+            "description": "Fixed version associated with CVE",
+            "examples": [
+              "0.9.2"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "detection",
+          "fixed_version"
+        ],
+        "title": "FixedVersion"
+      },
+      "FixedVersionResponse": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Purl associated with software package",
+            "examples": [
+              "pkg:pypi/aioxmpp@0.9.1"
+            ]
+          },
+          "vulnerabilities": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FixedVersion"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Vulnerabilities",
+            "description": "CVEs and package version they were fixed.",
+            "examples": [
+              [
+                "CVE-2021-1234"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "vulnerabilities"
+        ],
+        "title": "FixedVersionResponse"
+      },
+      "FuzzyBinaryTermMatch": {
+        "properties": {
+          "match_id": {
+            "type": "string",
+            "title": "Match Id",
+            "description": "ID of the matched file in the ground-truth collection"
+          },
+          "matched_term_count": {
+            "type": "integer",
+            "title": "Matched Term Count",
+            "description": "Number of terms matched between the input terms and terms in the matched ground-truth file"
+          },
+          "total_document_term_count": {
+            "type": "integer",
+            "title": "Total Document Term Count",
+            "description": "Total number of terms in the ground-truth file"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score",
+            "description": "Arbitrary score assigned to the match by the underlying matching algorithm"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "description": "Confidence score of the match (0.0 - 1.0) based on the term intersection"
+          }
+        },
+        "type": "object",
+        "required": [
+          "match_id",
+          "matched_term_count",
+          "total_document_term_count",
+          "score",
+          "confidence"
+        ],
+        "title": "FuzzyBinaryTermMatch"
+      },
+      "FuzzyBinaryTermMatchResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Message providing additional details of the matching process",
+            "default": "Success"
+          },
+          "filtered_input_term_count": {
+            "type": "integer",
+            "title": "Filtered Input Term Count",
+            "description": "Total number of unique terms that were queried for after filtering and normalization"
+          },
+          "matches": {
+            "items": {
+              "$ref": "#/components/schemas/FuzzyBinaryTermMatch"
+            },
+            "type": "array",
+            "title": "Matches",
+            "description": "Matches produced for the given input"
+          }
+        },
+        "type": "object",
+        "required": [
+          "filtered_input_term_count"
+        ],
+        "title": "FuzzyBinaryTermMatchResponse"
+      },
+      "FuzzyMatchSubcomponentTermsInput": {
+        "properties": {
+          "terms_by_type": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/SubcomponentTermTypesEnum"
+            },
+            "type": "object",
+            "title": "Terms By Type",
+            "description": "Dictionary where the key is the type term (function/string/etc), and the value is the set of terms to match against the subcomponent ground-truth collection.",
+            "examples": [
+              {
+                "function": [
+                  "function_1",
+                  "function_2"
+                ],
+                "string": [
+                  "string_1",
+                  "string_2"
+                ]
+              }
+            ]
+          },
+          "ids_to_exclude": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ids To Exclude",
+            "description": "Subcomponent keys to exclude from matching. This is used to iteratively downselect subcomponents."
+          }
+        },
+        "type": "object",
+        "required": [
+          "terms_by_type",
+          "ids_to_exclude"
+        ],
+        "title": "FuzzyMatchSubcomponentTermsInput"
+      },
+      "FuzzySubcomponentTermMatch": {
+        "properties": {
+          "subcomponent_id": {
+            "type": "string",
+            "title": "Subcomponent Id",
+            "description": "Key of the matched subcomponent in the ground-truth collection"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the subcomponent that was matched"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "Version of the matched subcomponent"
+          },
+          "total_score": {
+            "type": "number",
+            "title": "Total Score",
+            "description": "Total score of the match (sum of scores for each term type)"
+          },
+          "match_details_by_type": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FuzzySubcomponentTermMatchDetails"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/SubcomponentTermTypesEnum"
+            },
+            "type": "object",
+            "title": "Match Details By Type",
+            "description": "Details of the match for each term type",
+            "examples": [
+              {
+                "function": {
+                  "gt_term_count": 10,
+                  "score": 532.1
+                },
+                "string": {
+                  "gt_term_count": 10,
+                  "score": 532.1
+                }
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "subcomponent_id",
+          "name",
+          "version",
+          "total_score",
+          "match_details_by_type"
+        ],
+        "title": "FuzzySubcomponentTermMatch"
+      },
+      "FuzzySubcomponentTermMatchDetails": {
+        "properties": {
+          "score": {
+            "type": "number",
+            "title": "Score",
+            "description": "Arbitrary score assigned to the match by the underlying matching algorithm"
+          },
+          "gt_term_count": {
+            "type": "integer",
+            "title": "Gt Term Count",
+            "description": "Total number of terms of this type for the given subcomponent in the ground-truth term set"
+          }
+        },
+        "type": "object",
+        "required": [
+          "score",
+          "gt_term_count"
+        ],
+        "title": "FuzzySubcomponentTermMatchDetails"
+      },
+      "FuzzySubcomponentTermMatchResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Message providing additional details of the matching process",
+            "default": "Success"
+          },
+          "input_term_counts_by_type": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "propertyNames": {
+              "$ref": "#/components/schemas/SubcomponentTermTypesEnum"
+            },
+            "type": "object",
+            "title": "Input Term Counts By Type",
+            "description": "Number of input terms for each term type",
+            "examples": [
+              {
+                "function": 3,
+                "string": 3
+              }
+            ]
+          },
+          "matches": {
+            "items": {
+              "$ref": "#/components/schemas/FuzzySubcomponentTermMatch"
+            },
+            "type": "array",
+            "title": "Matches",
+            "description": "Matches produced for the given input"
+          }
+        },
+        "type": "object",
+        "required": [
+          "input_term_counts_by_type"
+        ],
+        "title": "FuzzySubcomponentTermMatchResponse"
+      },
+      "GetBulkBody": {
+        "properties": {
+          "vuln_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 5000,
+            "minItems": 1,
+            "title": "Vuln Ids",
+            "description": "List of vulnerability identifiers to retrieve reachability data for.",
+            "examples": [
+              [
+                "CVE-2013-0268",
+                "CVE-2012-6548"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "vuln_ids"
+        ],
+        "title": "GetBulkBody"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "InputDependency": {
+        "properties": {
+          "from": {
+            "type": "string",
+            "title": "From",
+            "description": "PURL of the component that has a dependency on the 'to' component. This PURL must appear in the 'components' section."
+          },
+          "to": {
+            "type": "string",
+            "title": "To",
+            "description": "PURL of the component that is depended on by the 'from'component. This PURL must appear in the 'components' section."
+          }
+        },
+        "type": "object",
+        "required": [
+          "from",
+          "to"
+        ],
+        "title": "InputDependency",
+        "description": "Input model for a software component dependency"
+      },
+      "IsPatchedInput": {
+        "properties": {
+          "major_version": {
+            "type": "string",
+            "title": "Major Version",
+            "description": "Major version",
+            "examples": [
+              "openSUSE Leap 15.4"
+            ]
+          },
+          "cve": {
+            "type": "string",
+            "title": "Cve",
+            "description": "CVE name",
+            "examples": [
+              "CVE-2022-42325"
+            ]
+          },
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL",
+            "examples": [
+              "pkg:rpm/xen@4.16.5_06-150400.4.37.1"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "major_version",
+          "cve",
+          "purl"
+        ],
+        "title": "IsPatchedInput",
+        "description": "IsPatched Input"
+      },
+      "IsPatchedResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Status of the CVE",
+            "examples": [
+              "affected",
+              "not affected",
+              "unknown"
+            ]
+          },
+          "cve": {
+            "type": "string",
+            "title": "Cve",
+            "description": "CVE name",
+            "examples": [
+              "CVE-2022-42325"
+            ]
+          },
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL",
+            "examples": [
+              "pkg:rpm/xen@4.16.5_06-150400.4.37.1"
+            ]
+          },
+          "fixed_in": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Fixed In",
+            "description": "Fixed in which patch",
+            "examples": [
+              {
+                "patch": "SUSE-SLE-Module-Server-12-SP5-2021-1234-1"
+              }
+            ]
+          },
+          "patch_info": {
+            "type": "string",
+            "title": "Patch Info",
+            "description": "Patch information",
+            "examples": [
+              "Security update for libsolv, libzypp, zypper"
+            ]
+          },
+          "vendor_status": {
+            "type": "string",
+            "title": "Vendor Status",
+            "description": "Vendor status",
+            "examples": [
+              "will not fix",
+              "end of life",
+              "released"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "cve",
+          "purl",
+          "fixed_in",
+          "patch_info",
+          "vendor_status"
+        ],
+        "title": "IsPatchedResponse",
+        "description": "IsPatched Response"
+      },
+      "KernelModuleMetadataRequestInput": {
+        "properties": {
+          "module_name": {
+            "type": "string",
+            "title": "Module Name",
+            "description": "Name of the kernel module to retrieve metadata for."
+          },
+          "module_file_path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Module File Path",
+            "description": "Path to the kernel module file to retrieve metadata for. If provided, this is used to disambiguate between multiple modules with the same name."
+          },
+          "module_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Module Description",
+            "description": "Description of the kernel module to retrieve metadata for. If provided, this is used to disambiguate between multiple modules with the same name."
+          },
+          "kernel_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Kernel Version",
+            "description": "Kernel version to retrieve metadata for. For now this field is ignored, but in the future this will be used to retrieve version-specific metadata when available."
+          }
+        },
+        "type": "object",
+        "required": [
+          "module_name"
+        ],
+        "title": "KernelModuleMetadataRequestInput",
+        "description": "Kernel Module Metadata Request Input"
+      },
+      "KernelModuleMetadataResponse": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of the kernel module",
+            "examples": [
+              "page_alloc"
+            ]
+          },
+          "source_files": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Files",
+            "description": "Source file paths (relative to the kernel repo root) that contribute logic to the kernel module",
+            "examples": [
+              "kernel/mm/page_alloc.c"
+            ]
+          },
+          "config_options": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Config Options",
+            "description": "Kernel config options that are required for this module to included in a kernel",
+            "examples": [
+              "CONFIG_SMP"
+            ]
+          },
+          "makefile_path": {
+            "type": "string",
+            "title": "Makefile Path",
+            "description": "Path to the Makefile that contains the kernel module make target",
+            "examples": [
+              "kernel/mm/Makefile"
+            ]
+          },
+          "license": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License",
+            "description": "Raw license string specified by the kernel module, if specified",
+            "examples": [
+              "GPL"
+            ]
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "Description of the kernel module, if specified",
+            "examples": [
+              "Page allocation module"
+            ]
+          },
+          "authors": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Authors",
+            "description": "Authors of the kernel module, if specified",
+            "examples": [
+              [
+                "Linus Torvalds <linus@linux.com>"
+              ]
+            ]
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version",
+            "description": "Version of the kernel module, if specified by the module itself",
+            "examples": [
+              "1.0.0"
+            ]
+          },
+          "aliases": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Aliases",
+            "description": "Aliases of the kernel module, if specified",
+            "examples": [
+              [
+                "foo",
+                "bar"
+              ]
+            ]
+          },
+          "source_licenses": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Licenses",
+            "description": "SPDX license identifiers from source files that contribute to the kernel module",
+            "examples": [
+              [
+                "GPL-2.0",
+                "MIT"
+              ]
+            ]
+          },
+          "concluded_license": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Concluded License",
+            "description": "Final SPDX license expression of the kernel module concluded by Finite State based on the available information",
+            "examples": [
+              "GPL-2.0-only AND MIT"
+            ]
+          },
+          "kernel_version": {
+            "type": "string",
+            "title": "Kernel Version",
+            "description": "Kernel version that this module metadata applies to",
+            "examples": [
+              "6.15.0"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "source_files",
+          "config_options",
+          "makefile_path",
+          "license",
+          "description",
+          "authors",
+          "version",
+          "aliases",
+          "source_licenses",
+          "concluded_license",
+          "kernel_version"
+        ],
+        "title": "KernelModuleMetadataResponse",
+        "description": "Kernel Module Metadata Expected Response"
+      },
+      "LimitOffsetPage_PatchResponse_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/PatchResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "offset": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "LimitOffsetPage[PatchResponse]"
+      },
+      "LimitOffsetPage_str_": {
+        "properties": {
+          "items": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "offset": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Offset"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "title": "LimitOffsetPage[str]"
+      },
+      "MatchedVulnerability": {
+        "properties": {
+          "ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Ids",
+            "description": "Vulnerability IDs. This is a list because a vulnerability may have multiple IDs or 'aliases' (such as CVE and GHSA identifiers). All IDs in this list are assumed to represent the same underlying vulnerability.",
+            "examples": [
+              [
+                "CVE-2021-44228",
+                "GHSA-jfh8-c2jp-5v3q"
+              ]
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "description": "The overall confidence that this vulnerability applies to the given set of software IDs",
+            "examples": [
+              0.9
+            ]
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/VulnMatchSources"
+            },
+            "type": "array",
+            "title": "Sources",
+            "description": "Sources of this vulnerability match"
+          },
+          "affected_software_ids": {
+            "items": {
+              "$ref": "#/components/schemas/VulnMatchSoftwareId"
+            },
+            "type": "array",
+            "title": "Affected Software Ids",
+            "description": "Software IDs affected by this vulnerability"
+          },
+          "cache": {
+            "type": "boolean",
+            "title": "Cache",
+            "description": "Whether or not to Cache this vulnerability match",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "ids",
+          "confidence",
+          "sources",
+          "affected_software_ids"
+        ],
+        "title": "MatchedVulnerability"
+      },
+      "MergebasePackageMetadataResponse": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL that the given metadata applies to.",
+            "examples": [
+              "pkg:generic/foobar@1.2.3"
+            ]
+          },
+          "r": {
+            "type": "string",
+            "title": "R",
+            "description": "The architecture e.g. NPM, PYPI"
+          },
+          "g": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "G",
+            "description": "The group id/namespace if applicable"
+          },
+          "a": {
+            "type": "string",
+            "title": "A",
+            "description": "The artifact id or name, e.g. openssl or requests"
+          },
+          "v": {
+            "type": "string",
+            "title": "V",
+            "description": "The version string e.g. 1.2.3"
+          },
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Q",
+            "description": "The qualifiers string if applicable"
+          },
+          "s": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "S",
+            "description": "The subpath if applicable"
+          },
+          "hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hash",
+            "description": "Component Hash"
+          },
+          "releaseDate": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Releasedate",
+            "description": "Date the component was released"
+          },
+          "openSource": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Opensource",
+            "description": "Whether the component is open source"
+          },
+          "projectHomepage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Projecthomepage",
+            "description": "Homepage of the component package"
+          },
+          "licenseInfo": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Licenseinfo",
+            "description": "List of SPDX license identifiers"
+          },
+          "updated": {
+            "type": "string",
+            "title": "Updated",
+            "description": "Timestamp the component was last updated in our system"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified",
+            "description": "Whether the component is verified, not used"
+          },
+          "subComponents": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Subcomponents",
+            "description": "List of subcomponents, not used"
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "r",
+          "g",
+          "a",
+          "v",
+          "q",
+          "s",
+          "hash",
+          "releaseDate",
+          "openSource",
+          "projectHomepage",
+          "licenseInfo",
+          "updated",
+          "verified",
+          "subComponents"
+        ],
+        "title": "MergebasePackageMetadataResponse"
+      },
+      "MergebasePackageVulnerabilitiesResponse": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL that the given metadata applies to.",
+            "examples": [
+              "pkg:generic/foobar@1.2.3"
+            ]
+          },
+          "r": {
+            "type": "string",
+            "title": "R",
+            "description": "The architecture e.g. NPM, PYPI"
+          },
+          "g": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "G",
+            "description": "The group id/namespace if applicable"
+          },
+          "a": {
+            "type": "string",
+            "title": "A",
+            "description": "The artifact id or name, e.g. openssl or requests"
+          },
+          "v": {
+            "type": "string",
+            "title": "V",
+            "description": "The version string e.g. 1.2.3"
+          },
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Q",
+            "description": "The qualifiers string if applicable"
+          },
+          "s": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "S",
+            "description": "The subpath if applicable"
+          },
+          "hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hash",
+            "description": "SHA256 hash"
+          },
+          "cveSet": {
+            "items": {
+              "$ref": "#/components/schemas/MergebaseVulnerability"
+            },
+            "type": "array",
+            "title": "Cveset",
+            "description": "Set of CVEs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "r",
+          "g",
+          "a",
+          "v",
+          "q",
+          "s",
+          "hash",
+          "cveSet"
+        ],
+        "title": "MergebasePackageVulnerabilitiesResponse"
+      },
+      "MergebaseVulnerability": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "The vulnerability ID"
+          },
+          "cvssV1": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cvssv1",
+            "description": "The CVSS V1 score"
+          },
+          "cvssV2": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cvssv2",
+            "description": "The CVSS V2.0 Score"
+          },
+          "cvssV3": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cvssv3",
+            "description": "The CVSS V3.0 Score"
+          },
+          "cvssV31": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cvssv31",
+            "description": "The CVSS V3.1 Score"
+          },
+          "cvssV4": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cvssv4",
+            "description": "The CVSS V4.0 Score"
+          },
+          "cweSet": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cweset",
+            "description": "Set of CWE IDs"
+          },
+          "jvnId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Jvnid",
+            "description": "The JVN ID"
+          },
+          "jvnUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Jvnurl",
+            "description": "The JVN URL"
+          },
+          "exploitMaturity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exploitmaturity",
+            "description": "The Exploit Maturity"
+          },
+          "epssScore": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Epssscore",
+            "description": "The EPSS Score"
+          },
+          "epssPercentile": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Epsspercentile",
+            "description": "The EPSS Percentile"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "cvssV1",
+          "cvssV2",
+          "cvssV3",
+          "cvssV31",
+          "cvssV4",
+          "cweSet",
+          "jvnId",
+          "jvnUrl",
+          "exploitMaturity",
+          "epssScore",
+          "epssPercentile"
+        ],
+        "title": "MergebaseVulnerability"
+      },
+      "NormalizedLicenseResponse": {
+        "properties": {
+          "input_expression": {
+            "type": "string",
+            "title": "Input Expression",
+            "description": "Input license expression",
+            "examples": [
+              "MIT and (gplv2+ with eCos-2.0 or foobar license)"
+            ]
+          },
+          "translated_expression": {
+            "type": "string",
+            "title": "Translated Expression",
+            "description": "Translated license expression",
+            "examples": [
+              "MIT AND (GPL-2.0-or-later WITH eCos-2.0 OR foobar license)"
+            ]
+          },
+          "spdx_compliant": {
+            "type": "boolean",
+            "title": "Spdx Compliant",
+            "description": "SPDX compliant flag",
+            "examples": [
+              false
+            ]
+          },
+          "license_metadata": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "License Metadata",
+            "description": "License metadata",
+            "examples": [
+              {
+                "raw_value": "MIT",
+                "spdx_id": "MIT"
+              },
+              {
+                "raw_value": "gplv2+ with eCos-2.0",
+                "spdx_id": "GPL-2.0-or-later WITH eCos-2.0"
+              },
+              {
+                "raw_value": "foobar license"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "input_expression",
+          "translated_expression",
+          "spdx_compliant",
+          "license_metadata"
+        ],
+        "title": "NormalizedLicenseResponse"
+      },
+      "OperatingSystemDistro": {
+        "type": "string",
+        "enum": [
+          "alpine",
+          "debian",
+          "openSUSE",
+          "redhat",
+          "suse",
+          "ubuntu"
+        ],
+        "title": "OperatingSystemDistro",
+        "description": "Enumeration of operating system distributions."
+      },
+      "PackageMetadata": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "The Package URL (PURL) that was given in the request.",
+            "examples": [
+              "pkg:generic/foobar@1.2.3"
+            ]
+          },
+          "matched_purl": {
+            "type": "string",
+            "title": "Matched Purl",
+            "description": "The Package URL (PURL) that was matched in the database.",
+            "examples": [
+              "pkg:generic/foobar@1.2.3"
+            ]
+          },
+          "cdx": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Cdx",
+            "description": "The Common Data Model (CDX) metadata for the package."
+          },
+          "fs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Fs",
+            "description": "Field containing additional Finite State-specific data that was captured but does not align with the CDX specification."
+          },
+          "generated_fields": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generated Fields",
+            "description": "The fields that were generated for the metadata.",
+            "examples": [
+              "license"
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "The timestamp of the metadata.",
+            "examples": [
+              "2021-01-01T00:00:00"
+            ]
+          },
+          "sources": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sources",
+            "description": "The sources of the metadata.",
+            "examples": [
+              "NVD",
+              "VulnDB"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "matched_purl",
+          "cdx",
+          "fs",
+          "timestamp"
+        ],
+        "title": "PackageMetadata"
+      },
+      "PackageMetadataInput": {
+        "properties": {
+          "purl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Purl",
+            "description": "Package url (purl) associated with software package",
+            "examples": [
+              "pkg:pypi/aioxmpp@0.9.1"
+            ]
+          },
+          "use_fuzzy_matching": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Use Fuzzy Matching",
+            "default": "Use fuzzy matching",
+            "examples": [
+              false
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl"
+        ],
+        "title": "PackageMetadataInput",
+        "description": "Package Metadata Expected Input"
+      },
+      "PackageMetadataResponse": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Purl associated with software package",
+            "examples": [
+              "pkg:pypi/aioxmpp@0.9.1"
+            ]
+          },
+          "licenses": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Licenses",
+            "description": "License associated with this purl",
+            "examples": [
+              [
+                "LGPL-3.0-or-later"
+              ]
+            ]
+          },
+          "matches": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matches",
+            "description": "License matches",
+            "examples": [
+              [
+                {
+                  "LGPL-3.0-or-later": 0.8
+                }
+              ]
+            ]
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "description": "Confidence of the match",
+            "examples": [
+              "0.8"
+            ]
+          },
+          "is_eol": {
+            "type": "boolean",
+            "title": "Is Eol",
+            "description": "Whether software package is currently in End of life status",
+            "examples": [
+              true
+            ]
+          },
+          "eol_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Eol Date",
+            "description": "End of life date (if known)",
+            "examples": [
+              "2022-01-01"
+            ]
+          },
+          "research_attributes": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Research Attributes",
+            "description": "Research attributes associated with this purl",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "licenses",
+          "matches",
+          "confidence",
+          "is_eol",
+          "eol_date"
+        ],
+        "title": "PackageMetadataResponse",
+        "description": "Package Metadata Expected Response"
+      },
+      "PackageMetadataV2Response": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL that the given metadata applies to.",
+            "examples": [
+              "pkg:generic/foobar@1.2.3"
+            ]
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata",
+            "description": "Metadata for the given PURL. This is guaranteed to contain all of the required fields (license, supplier_name, homepage, description), although their values may be null. It may also contain additional information beyond the required fields.",
+            "examples": [
+              {
+                "description": "A test package.",
+                "homepage": "https://acme.com",
+                "license": "MIT",
+                "other_field": "Another bit of metadata.",
+                "supplier_name": "Acme, Inc."
+              }
+            ]
+          },
+          "generated_fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Generated Fields",
+            "description": "List of non-null fields that were generated by an AI model instead of being looked up from a source of ground-truth or provided in the query itself.",
+            "examples": [
+              [
+                "license",
+                "homepage",
+                "description"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "metadata",
+          "generated_fields"
+        ],
+        "title": "PackageMetadataV2Response"
+      },
+      "PackageResponse": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL"
+          },
+          "versions": {
+            "items": {
+              "$ref": "#/components/schemas/PackageVersionResponse"
+            },
+            "type": "array",
+            "title": "Versions",
+            "description": "List of package versions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "versions"
+        ],
+        "title": "PackageResponse",
+        "description": "Package Response Model (contains many versions)"
+      },
+      "PackageVersionResponse": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL"
+          },
+          "publishedAt": {
+            "type": "string",
+            "title": "Publishedat",
+            "description": "Date and time the package was published at"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "title": "Isdefault",
+            "description": "Is this package version the default version?"
+          },
+          "isDeprecated": {
+            "type": "boolean",
+            "title": "Isdeprecated",
+            "description": "Is this package version deprecated?"
+          },
+          "vulnerabilities": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Vulnerabilities",
+            "description": "List of vulnerabilities"
+          },
+          "risk": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Risk",
+            "description": "Risk of package version"
+          },
+          "popularity": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Popularity",
+            "description": "Popularity of package version"
+          },
+          "compatability": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Compatability",
+            "description": "Compatability of package version, an integer between 0 and 100"
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "publishedAt",
+          "isDefault",
+          "isDeprecated",
+          "vulnerabilities",
+          "risk",
+          "popularity",
+          "compatability"
+        ],
+        "title": "PackageVersionResponse",
+        "description": "Package Version Model"
+      },
+      "PackagesForFeatureValuesResult": {
+        "properties": {
+          "feature_value_pkgs": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Feature Value Pkgs",
+            "description": "A dictionary where the keys are feature values and the values are lists of packages that contain that feature value"
+          },
+          "max_cardinality_exceeded": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Max Cardinality Exceeded",
+            "description": "List of feature values that exceeded the specified max cardinality (AKA the ones that belong to too many packages)"
+          }
+        },
+        "type": "object",
+        "title": "PackagesForFeatureValuesResult"
+      },
+      "Pagination": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total",
+            "description": "The total number of items.",
+            "examples": [
+              100
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page",
+            "description": "The current page number.",
+            "examples": [
+              1
+            ]
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size",
+            "description": "The number of items per page.",
+            "examples": [
+              10
+            ]
+          },
+          "total_pages": {
+            "type": "integer",
+            "title": "Total Pages",
+            "description": "The total number of pages.",
+            "examples": [
+              10
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "size",
+          "total_pages"
+        ],
+        "title": "Pagination"
+      },
+      "PaginationParams": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Page",
+            "description": "Page number, starts from 1",
+            "default": 1
+          },
+          "size": {
+            "type": "integer",
+            "maximum": 1e+2,
+            "minimum": 1.0,
+            "title": "Size",
+            "description": "Number of items per page (1-100)",
+            "default": 10
+          }
+        },
+        "type": "object",
+        "title": "PaginationParams"
+      },
+      "PatchResponse": {
+        "properties": {
+          "patch": {
+            "type": "string",
+            "title": "Patch",
+            "description": "Patch name",
+            "examples": [
+              "SUSE-SLE-Module-Server-12-SP5-2021-1234-1"
+            ]
+          },
+          "cves": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cves",
+            "description": "CVEs remediated with following patch",
+            "examples": [
+              [
+                "CVE-2021-1234",
+                "CVE-2021-5678"
+              ]
+            ]
+          },
+          "tracking": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Tracking",
+            "description": "Tracking information for patch",
+            "examples": [
+              {
+                "status": "released"
+              }
+            ]
+          },
+          "references": {
+            "items": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "References",
+            "description": "References for patch",
+            "examples": [
+              [
+                {
+                  "URL": "https://www.suse.com/security/cve/CVE-2021-1234/"
+                }
+              ]
+            ]
+          },
+          "title": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Title",
+            "description": "Titles of fixes including in the patch name",
+            "examples": [
+              "Security update for libsolv, libzypp, zypper",
+              "Security update for python-M2Crypto"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "patch",
+          "cves",
+          "tracking",
+          "references",
+          "title"
+        ],
+        "title": "PatchResponse",
+        "description": "Patch Response"
+      },
+      "ReachabilityInfo": {
+        "properties": {
+          "vuln_id": {
+            "type": "string",
+            "title": "Vuln Id"
+          },
+          "vuln_functions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Vuln Functions",
+            "default": []
+          },
+          "kernel_modules": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Kernel Modules",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "vuln_id"
+        ],
+        "title": "ReachabilityInfo"
+      },
+      "RelatedPackagesRequest": {
+        "properties": {
+          "include": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Include",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to include"
+          },
+          "exclude": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exclude",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to exclude"
+          },
+          "purls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Purls",
+            "description": "The Package URLs (PURLs) to lookup.",
+            "examples": [
+              [
+                "pkg:generic/foobar@1.2.3"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "purls"
+        ],
+        "title": "RelatedPackagesRequest"
+      },
+      "RemediationGuidanceInput": {
+        "properties": {
+          "purls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Purls",
+            "description": "List of PURLs to get remediation guidance for"
+          }
+        },
+        "type": "object",
+        "required": [
+          "purls"
+        ],
+        "title": "RemediationGuidanceInput",
+        "description": "Input model for the /remediation_guidance"
+      },
+      "RequestManyByVulnIdSet": {
+        "properties": {
+          "include": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Include",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to include"
+          },
+          "exclude": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exclude",
+            "examples": [
+              []
+            ],
+            "gdescription": "Fields to exclude"
+          },
+          "vuln_id_set": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "List of vulnerability IDs to query",
+            "examples": [
+              [
+                "CVE-2003-0425",
+                "CVE-2015-5951"
+              ]
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "vuln_id_set"
+        ],
+        "title": "RequestManyByVulnIdSet"
+      },
+      "ResolveDepsInput": {
+        "properties": {
+          "components": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Components",
+            "description": "List of PURLs to resolve dependencies for"
+          },
+          "dependencies": {
+            "items": {
+              "$ref": "#/components/schemas/InputDependency"
+            },
+            "type": "array",
+            "title": "Dependencies",
+            "description": "List of known dependencies between the given components"
+          }
+        },
+        "type": "object",
+        "required": [
+          "components",
+          "dependencies"
+        ],
+        "title": "ResolveDepsInput",
+        "description": "Input model for the /resolve_dependencies endpoint"
+      },
+      "ResolveDepsResponse": {
+        "properties": {
+          "components": {
+            "items": {
+              "$ref": "#/components/schemas/ResponseComponent"
+            },
+            "type": "array",
+            "title": "Components",
+            "description": "List of software components and metadata about them, including ones that were added based on dependency info"
+          },
+          "dependencies": {
+            "items": {
+              "$ref": "#/components/schemas/ResponseDependency"
+            },
+            "type": "array",
+            "title": "Dependencies",
+            "description": "List of dependency information, including ones that were added based on dependency info"
+          }
+        },
+        "type": "object",
+        "required": [
+          "components",
+          "dependencies"
+        ],
+        "title": "ResolveDepsResponse",
+        "description": "Response model for the /resolve_dependencies endpoint"
+      },
+      "ResponseComponent": {
+        "properties": {
+          "purl": {
+            "type": "string",
+            "title": "Purl",
+            "description": "Package URL for the component"
+          },
+          "added": {
+            "type": "boolean",
+            "title": "Added",
+            "description": "True if the component was added based on dependency info (AKA it didn't apear in the input set of components)"
+          },
+          "deps_known": {
+            "type": "boolean",
+            "title": "Deps Known",
+            "description": "True if ground-truth dependency info was found for this component, even if the component has no dependencies."
+          }
+        },
+        "type": "object",
+        "required": [
+          "purl",
+          "added",
+          "deps_known"
+        ],
+        "title": "ResponseComponent",
+        "description": "Response model for a software component"
+      },
+      "ResponseDependency": {
+        "properties": {
+          "from": {
+            "type": "string",
+            "title": "From",
+            "description": "PURL of the component that has a dependency on the 'to' component."
+          },
+          "to": {
+            "type": "string",
+            "title": "To",
+            "description": "PURL of the component that is depended on by the 'from'component."
+          },
+          "constraint": {
+            "type": "string",
+            "title": "Constraint",
+            "description": "Version constraint for the dependency. May be 'Unknown' if not known."
+          },
+          "origin": {
+            "$ref": "#/components/schemas/DependencyInfoOrigins",
+            "description": "Origin/source of the dependency information"
+          },
+          "added": {
+            "type": "boolean",
+            "title": "Added",
+            "description": "True if the dependency was added based on dependency info (AKA it didn't apear in the input set of dependencies)"
+          },
+          "updated": {
+            "type": "boolean",
+            "title": "Updated",
+            "description": "True if the dependency was updated based on dependency info (e.g. the version constraint was changed)"
+          },
+          "errors": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Errors",
+            "description": "List of errors that occurred while trying to create this dependency. This may be empty. This will most often occur when our internal version constraint parsers fails to parse info from the upstream dependency information source."
+          }
+        },
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "constraint",
+          "origin",
+          "added",
+          "updated",
+          "errors"
+        ],
+        "title": "ResponseDependency",
+        "description": "Response model for a software component dependency"
+      },
+      "Response_PackageMetadata_": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "OK",
+              "Created"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              200,
+              201
+            ]
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message",
+            "description": "A message describing the response.",
+            "default": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/PackageMetadata",
+            "description": "The data returned by the API."
+          },
+          "pagination": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pagination"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pagination details if applicable."
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings",
+            "description": "A list of warnings about this response"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "data"
+        ],
+        "title": "Response[PackageMetadata]"
+      },
+      "Response_ReachabilityInfo_": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "OK",
+              "Created"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              200,
+              201
+            ]
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message",
+            "description": "A message describing the response.",
+            "default": ""
+          },
+          "data": {
+            "$ref": "#/components/schemas/ReachabilityInfo",
+            "description": "The data returned by the API."
+          },
+          "pagination": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pagination"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pagination details if applicable."
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings",
+            "description": "A list of warnings about this response"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "data"
+        ],
+        "title": "Response[ReachabilityInfo]"
+      },
+      "Response_list_ReachabilityInfo__": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "OK",
+              "Created"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              200,
+              201
+            ]
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message",
+            "description": "A message describing the response.",
+            "default": ""
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ReachabilityInfo"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "The data returned by the API."
+          },
+          "pagination": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pagination"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pagination details if applicable."
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings",
+            "description": "A list of warnings about this response"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "data"
+        ],
+        "title": "Response[list[ReachabilityInfo]]"
+      },
+      "Response_list_SPDXLicenseLite__": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "OK",
+              "Created"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              200,
+              201
+            ]
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message",
+            "description": "A message describing the response.",
+            "default": ""
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SPDXLicenseLite"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "The data returned by the API."
+          },
+          "pagination": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pagination"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pagination details if applicable."
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings",
+            "description": "A list of warnings about this response"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "data"
+        ],
+        "title": "Response[list[SPDXLicenseLite]]"
+      },
+      "Response_list_dict__": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "The status of the response.",
+            "examples": [
+              "OK",
+              "Created"
+            ]
+          },
+          "code": {
+            "type": "integer",
+            "title": "Code",
+            "description": "The HTTP status code of the response.",
+            "examples": [
+              200,
+              201
+            ]
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message",
+            "description": "A message describing the response.",
+            "default": ""
+          },
+          "data": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Data",
+            "description": "The data returned by the API."
+          },
+          "pagination": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Pagination"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Pagination details if applicable."
+          },
+          "warnings": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Warnings",
+            "description": "A list of warnings about this response"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "code",
+          "data"
+        ],
+        "title": "Response[list[dict]]"
+      },
+      "SPDXLicenseLite": {
+        "properties": {
+          "license_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Name",
+            "description": "SPDX license name",
+            "examples": [
+              "389-exception"
+            ]
+          },
+          "license_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Id",
+            "description": "SPDX license identifier",
+            "examples": [
+              "389-exception"
+            ]
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "SPDX license name",
+            "examples": [
+              "GNU Affero General Public License v1.0"
+            ]
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url",
+            "description": "SPDX license details url",
+            "examples": [
+              "https://spdx.org/licenses/AGPL-1.0.html"
+            ]
+          },
+          "category": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category",
+            "description": "SPDX license category",
+            "examples": [
+              "Permissive"
+            ]
+          },
+          "is_exception": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Exception",
+            "description": "Is this a license exception?",
+            "examples": [
+              false
+            ]
+          },
+          "license_exception_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Exception Id",
+            "description": "SPDX license exception identifier",
+            "examples": [
+              "AGPL-1.0"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "license_name",
+          "license_id",
+          "name",
+          "url",
+          "category",
+          "is_exception",
+          "license_exception_id"
+        ],
+        "title": "SPDXLicenseLite",
+        "description": "SPDX License Response"
+      },
+      "SPDXResponse": {
+        "properties": {
+          "license_id": {
+            "type": "string",
+            "title": "License Id",
+            "description": "SPDX license identifier",
+            "examples": [
+              "389-exception"
+            ]
+          },
+          "license_exception_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "License Exception Id",
+            "description": "SPDX license exception identifier",
+            "examples": [
+              "AGPL-1.0"
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "title": "Reference",
+            "description": "SPDX license reference",
+            "examples": [
+              "https://spdx.org/licenses/AGPL-1.0.html"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "SPDX license name",
+            "examples": [
+              "GNU Affero General Public License v1.0"
+            ]
+          },
+          "is_deprecated_license": {
+            "type": "boolean",
+            "title": "Is Deprecated License",
+            "description": "Is deprecated license identifier",
+            "examples": [
+              false
+            ]
+          },
+          "details_url": {
+            "type": "string",
+            "title": "Details Url",
+            "description": "SPDX license details url",
+            "examples": [
+              "https://spdx.org/licenses/AGPL-1.0.html"
+            ]
+          },
+          "reference_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reference Number",
+            "description": "SPDX license reference number",
+            "examples": [
+              1
+            ]
+          },
+          "is_osi_approved": {
+            "type": "boolean",
+            "title": "Is Osi Approved",
+            "description": "Is OSI approved",
+            "examples": [
+              true
+            ]
+          },
+          "is_fsf_libre": {
+            "type": "boolean",
+            "title": "Is Fsf Libre",
+            "description": "Is FSF libre",
+            "examples": [
+              true
+            ]
+          },
+          "see_also": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "See Also",
+            "description": "SPDX license see also",
+            "examples": [
+              [
+                "https://spdx.org/licenses/AGPL-1.0.html"
+              ]
+            ]
+          },
+          "copy_left": {
+            "type": "string",
+            "title": "Copy Left",
+            "description": "SPDX license copy left",
+            "examples": [
+              "Network"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "license_id",
+          "license_exception_id",
+          "reference",
+          "name",
+          "is_deprecated_license",
+          "details_url",
+          "reference_number",
+          "is_osi_approved",
+          "is_fsf_libre",
+          "see_also",
+          "copy_left"
+        ],
+        "title": "SPDXResponse",
+        "description": "SPDX License Expected Response"
+      },
+      "SoftwareId": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/SoftwareIdType",
+            "description": "Type of software identifier"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value",
+            "description": "Value of software identifier"
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "description": "Confidence that this identifier correctly represents the given software component."
+          },
+          "gt_match": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gt Match",
+            "description": "True if the value exactly matches a known ground-truth software identifier. Null if unknown or unverified."
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value",
+          "confidence"
+        ],
+        "title": "SoftwareId",
+        "description": "Software identifier information generated for given software component metadata."
+      },
+      "SoftwareIdType": {
+        "type": "string",
+        "enum": [
+          "cpe",
+          "purl"
+        ],
+        "title": "SoftwareIdType",
+        "description": "Software identifier types supported for generation"
+      },
+      "SoftwareInfo": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Name of software component",
+            "examples": [
+              "busybox"
+            ]
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "Version of software component",
+            "examples": [
+              "1.2.5"
+            ]
+          },
+          "supplier_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplier Name",
+            "description": "Optional name of software component supplier",
+            "examples": [
+              "debian"
+            ]
+          },
+          "supplier_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supplier Type",
+            "description": "Optional type of the software component, such as 'rpm' or 'deb'",
+            "examples": [
+              "deb"
+            ]
+          },
+          "generate_purl_only": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Generate Purl Only",
+            "description": "Optional boolean indicating whether to generate purl only for the given component"
+          },
+          "purl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Purl",
+            "description": "Optional purl to use for the given component. If provided, this will be for CPE lookups.",
+            "examples": [
+              null
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "version"
+        ],
+        "title": "SoftwareInfo",
+        "description": "Software component metadata used for generating software identifiers."
+      },
+      "SubcomponentTermTypesEnum": {
+        "type": "string",
+        "enum": [
+          "function",
+          "string"
+        ],
+        "title": "SubcomponentTermTypesEnum"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VersionKey": {
+        "properties": {
+          "r": {
+            "type": "string",
+            "title": "R",
+            "description": "The architecture e.g. NPM, PYPI"
+          },
+          "g": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "G",
+            "description": "The namespace or group id. optional",
+            "default": ""
+          },
+          "a": {
+            "type": "string",
+            "title": "A",
+            "description": "The artifact id or name, e.g. openssl or requests"
+          },
+          "v": {
+            "type": "string",
+            "title": "V",
+            "description": "The version string e.g. 1.2.3"
+          },
+          "q": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Q",
+            "description": "The qualifiers string, optional",
+            "default": ""
+          },
+          "s": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "S",
+            "description": "The subpath, optional",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "r",
+          "a",
+          "v"
+        ],
+        "title": "VersionKey"
+      },
+      "VulnMatchSoftwareId": {
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/VulnMatchSoftwareIdType",
+            "description": "Type of software identifier"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value",
+            "description": "Value of software identifier. Must be valid for the given type.",
+            "examples": [
+              "cpe:2.3:a:apache:log4j:2.0:-:*:*:*:*:*:*"
+            ]
+          },
+          "confidence": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Confidence",
+            "description": "Confidence that this software identifier being valid for the BOM under test. This is used when determining overall vulnerability match confidence. If not specified, the confidence is assumed to be 1.0.",
+            "default": 1.0,
+            "examples": [
+              0.9
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "value"
+        ],
+        "title": "VulnMatchSoftwareId",
+        "description": "Software Identifier information used for matching vulnerabilities"
+      },
+      "VulnMatchSoftwareIdType": {
+        "type": "string",
+        "enum": [
+          "cpe",
+          "purl"
+        ],
+        "title": "VulnMatchSoftwareIdType",
+        "description": "Software Identifier types supported for vulnerability matching"
+      },
+      "VulnMatchSources": {
+        "type": "string",
+        "enum": [
+          "internal_0",
+          "external_0"
+        ],
+        "title": "VulnMatchSources",
+        "description": "Supported sources for vulnerability matches"
+      }
+    }
+  }
+}

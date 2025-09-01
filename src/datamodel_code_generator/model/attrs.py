@@ -30,9 +30,40 @@ if TYPE_CHECKING:
 
 
 def _has_field_assignment(field: DataModelFieldBase) -> bool:
-    return bool(field.field) or not (
-        field.required or (field.represented_default == "None" and field.strip_default_none)
-    )
+    """Return True iff this field will have a default/factory emitted.
+
+    IMPORTANT: Using ``attrs.field(metadata=...)`` without a default is NOT a
+    defaulted field for ordering purposes. We only return True when a default
+    value or a default factory will actually be emitted in code.
+    """
+    # default factory always implies defaulted field
+    if getattr(field, "has_default_factory", False):
+        return True
+
+    default = getattr(field, "default", UNDEFINED)
+    if default is UNDEFINED or default is None:
+        # Either no default or ``None`` which we don't emit for attrs when using field(metadata=...)
+        return False
+
+    # Best-effort match to ensure we'll actually include the default
+    type_hint = getattr(field, "type_hint", "")
+
+    def _default_matches_type(th: str, default_value: Any) -> bool:
+        if isinstance(default_value, bool):
+            return "bool" in th
+        if isinstance(default_value, int) and not isinstance(default_value, bool):
+            return "int" in th
+        if isinstance(default_value, float):
+            return "float" in th
+        if isinstance(default_value, str):
+            return "str" in th
+        if isinstance(default_value, list):
+            return "list" in th or "Sequence" in th
+        if isinstance(default_value, dict):
+            return "dict" in th or "Mapping" in th
+        return False
+
+    return _default_matches_type(type_hint, default)
 
 
 class DataClass(DataModel):
@@ -121,8 +152,28 @@ class DataModelField(DataModelFieldBase):
         if "default_factory" in self.extras:
             data["factory"] = self.extras["default_factory"]
 
+        # Only attach default if it matches the annotated type to avoid type errors
         if self.default != UNDEFINED and self.default is not None:
-            data["default"] = self.default
+            type_hint = self.type_hint
+
+            def _default_matches_type(th: str, default_value: Any) -> bool:
+                # best-effort simple check using substrings in the type hint
+                if isinstance(default_value, bool):
+                    return "bool" in th
+                if isinstance(default_value, int) and not isinstance(default_value, bool):
+                    return "int" in th
+                if isinstance(default_value, float):
+                    return "float" in th
+                if isinstance(default_value, str):
+                    return "str" in th
+                if isinstance(default_value, list):
+                    return "list" in th or "Sequence" in th
+                if isinstance(default_value, dict):
+                    return "dict" in th or "Mapping" in th
+                return False
+
+            if _default_matches_type(type_hint, self.default):
+                data["default"] = self.default
 
         if self.required:
             data = {k: v for k, v in data.items() if k not in {"default", "factory"}}
@@ -138,20 +189,14 @@ class DataModelField(DataModelFieldBase):
         max_length = constraints.get("maxLength")
         min_items = constraints.get("minItems")
         max_items = constraints.get("maxItems")
-        if min_length is not None or max_length is not None:
-            args = []
-            if min_length is not None:
-                args.append(f"min={int(min_length)}")
-            if max_length is not None:
-                args.append(f"max={int(max_length)}")
-            validators.append(f"validators.length({', '.join(args)})")
-        if min_items is not None or max_items is not None:
-            args = []
-            if min_items is not None:
-                args.append(f"min={int(min_items)}")
-            if max_items is not None:
-                args.append(f"max={int(max_items)}")
-            validators.append(f"validators.length({', '.join(args)})")
+        if min_length is not None:
+            validators.append(f"validators.min_len({int(min_length)})")
+        if max_length is not None:
+            validators.append(f"validators.max_len({int(max_length)})")
+        if min_items is not None:
+            validators.append(f"validators.min_len({int(min_items)})")
+        if max_items is not None:
+            validators.append(f"validators.max_len({int(max_items)})")
 
         # numeric comparisons
         # JSON Schema uses: minimum, maximum, exclusiveMinimum, exclusiveMaximum
@@ -164,6 +209,9 @@ class DataModelField(DataModelFieldBase):
         for key, fn in num_map:
             value = constraints.get(key)
             if value is not None:
+                # avoid float literals like 1.0 when an int is sufficient
+                if isinstance(value, float) and value.is_integer():
+                    value = int(value)
                 validators.append(f"validators.{fn}({value})")
 
         # regex pattern
